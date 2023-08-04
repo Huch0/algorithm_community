@@ -1,0 +1,19 @@
+# Ignore Python compiled files
+*.pyc
+__pycache__/
+
+# Ignore Python virtual environment
+venv/
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore PyCharm settings
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# misc
+.DS_Store
+*.pem
