@@ -17,3 +17,5 @@ venv/
 # misc
 .DS_Store
 *.pem
+
+*.exe
