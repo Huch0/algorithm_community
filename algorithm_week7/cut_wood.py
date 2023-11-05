@@ -5,7 +5,7 @@ def get_wood(array, height): # 얻을 수 있는 나무의 길이
             total_wood += tree_height - height
     return total_wood
 
-def binary_search(array, target, start, end): # 이진 탐색 함수. 
+def binary_search(array, target, start, end): # 이진 탐색 함수. 절단기의 최대 높이를 찾기 위해 start와 end를 조정하는 반복문 작성
     result = 0
     while start <= end:
         mid = (start + end) // 2

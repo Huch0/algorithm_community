@@ -45,7 +45,6 @@ for i in range(1, n + 1):
         print(distance[i])
 """
 
-
 INF = int(1e9)
 
 n, m = map(int, input().split())
