@@ -5,14 +5,14 @@ class Solution:
             if index >= 0:
                 subset.append(nums[index])
             subsets.append(subset[:])
-            
+
             # base case : all traversal ends in last element
             if (index == len(nums) - 1):
                 return
-            
+
             for i in range(index + 1, len(nums)):
                 dfs(subset[:], i)
-        
+
         subsets = []
         nums.sort()
         dfs([], -1)
