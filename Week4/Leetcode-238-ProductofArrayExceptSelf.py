@@ -8,6 +8,7 @@ class Solution:
             left_product *= nums[i]
         
         right_product = 1
+        
         for i in range(len(nums)-1,0-1,-1):
             results[i] *= right_product
             right_product *= nums[i]
