@@ -5,7 +5,6 @@
 #         self.next = next
 
 # 맨앞 맨뒤의 예외처리는 따로 해주고 가운데 2개씩 처리하기
-
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if head == None: #노드가 0개일 경우
@@ -28,3 +27,13 @@ class Solution:
             head = head.next.next
         
         return answer
+    
+# 재귀를 이용한 풀이
+class Solution:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head is None or head.next is None:
+            return head
+        p = head.next
+        head.next = self.swapPairs(p.next)
+        p.next = head
+        return p
