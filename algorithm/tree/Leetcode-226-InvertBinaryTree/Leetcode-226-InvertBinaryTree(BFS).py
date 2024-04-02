@@ -6,15 +6,15 @@
 #         self.right = right
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        stack = [root]
+        queue = collections.deque([root])
+        
+        while queue :
+            node = queue.popleft()
 
-        while stack :
-            node = stack.pop()
-
-            if node:
+            if node :
                 node.left, node.right = node.right, node.left
 
-                stack.append(node.left)
-                stack.append(node.right)
-
+                queue.append(node.left)
+                queue.append(node.right)
+            
         return root
