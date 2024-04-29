@@ -17,3 +17,6 @@ venv/
 # misc
 .DS_Store
 *.pem
+
+# Ignore Cpp output files
+*output*
