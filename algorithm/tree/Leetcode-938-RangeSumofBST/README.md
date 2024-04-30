@@ -26,40 +26,40 @@
      그 외에 low값과 high값 사이에 있는 경우에는 왼쪽,오른쪽 서브트리를 다시 조사.
 
    ```python
-    else :
-      self.sum_of_node += root.val
-      if root.val == high :
-          self.rangeSumBST(root.left,low,high)
-      elif root.val == low :
-          self.rangeSumBST(root.right,low,high)
-      else :
-          self.rangeSumBST(root.left,low,high)
-          self.rangeSumBST(root.right,low,high)
+       else :
+         self.sum_of_node += root.val
+         if root.val == high :
+             self.rangeSumBST(root.left,low,high)
+         elif root.val == low :
+             self.rangeSumBST(root.right,low,high)
+         else :
+             self.rangeSumBST(root.left,low,high)
+             self.rangeSumBST(root.right,low,high)
    ```
 
    * 전체코드
    ```python
-   class Solution:
-       sum_of_node = 0
-       def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-   
-           if not root : return 
-   
-           if root.val < low : 
-               self.rangeSumBST(root.right,low,high)
-           elif root.val > high :
-               self.rangeSumBST(root.left,low,high)
-           else :
-               self.sum_of_node += root.val
-               if root.val == high :
-                   self.rangeSumBST(root.left,low,high)
-               elif root.val == low :
-                   self.rangeSumBST(root.right,low,high)
-               else :
-                   self.rangeSumBST(root.left,low,high)
-                   self.rangeSumBST(root.right,low,high)
-           
-           return self.sum_of_node
+      class Solution:
+          sum_of_node = 0
+          def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+      
+              if not root : return 
+      
+              if root.val < low : 
+                  self.rangeSumBST(root.right,low,high)
+              elif root.val > high :
+                  self.rangeSumBST(root.left,low,high)
+              else :
+                  self.sum_of_node += root.val
+                  if root.val == high :
+                      self.rangeSumBST(root.left,low,high)
+                  elif root.val == low :
+                      self.rangeSumBST(root.right,low,high)
+                  else :
+                      self.rangeSumBST(root.left,low,high)
+                      self.rangeSumBST(root.right,low,high)
+              
+              return self.sum_of_node
    ```
      
      
