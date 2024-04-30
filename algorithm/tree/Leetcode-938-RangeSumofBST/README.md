@@ -68,29 +68,22 @@
 
 * __대략적인 풀이 방식은 비슷하지만, 결과값 변수를 따로 지정하지 않고, 함수의 return 값을 노드들의 합으로 설정__ 
 
-
-     
-     
-   
-
-   
-   
 * __전체코드__
-```python
-class Solution:
-    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-        def dfs(node) :
-            if not node : return 0
+    ```python
+    class Solution:
+        def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+            def dfs(node) :
+                if not node : return 0
 
-            if node.val < low : 
-                return dfs(node.right)
-            if node.val > high : 
-                return dfs(node.left)
+                if node.val < low : 
+                    return dfs(node.right)
+                if node.val > high : 
+                    return dfs(node.left)
 
-            return node.val + dfs(node.right) + dfs(node.left)
+                return node.val + dfs(node.right) + dfs(node.left)
 
-        return dfs(root)
-```
+            return dfs(root)
+    ```
 
 ### 3-2. 예제 풀이 (DFS 스택 이용)
 
@@ -99,50 +92,50 @@ class Solution:
     일반적인 경우에 반복을 활용한 풀이의 경우 직관적으로 이해하기 쉽다는 장점을 가짐.
 
 * __전체코드__
-```python
-class Solution:
-    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-        stack = [root]
-        sum_of_node = 0
+    ```python
+    class Solution:
+        def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+            stack = [root]
+            sum_of_node = 0
 
-        while stack :
-            node = stack.pop()
+            while stack :
+                node = stack.pop()
 
-            if not node : continue
+                if not node : continue
 
-            if node.val < low : stack.append(node.right)
-            elif node.val > high : stack.append(node.left)
-            else : 
-                sum_of_node += node.val
-                stack.append(node.left)
-                stack.append(node.right)
-        return sum_of_node
-```
+                if node.val < low : stack.append(node.right)
+                elif node.val > high : stack.append(node.left)
+                else : 
+                    sum_of_node += node.val
+                    stack.append(node.left)
+                    stack.append(node.right)
+            return sum_of_node
+    ```
 
 ### 3-3. 예제 풀이 (BFS 큐 이용)
 * __BFS로 큐를 이용한 풀이__
     3-2의 풀이에서 스택을 큐로, pop()을 popleft()로 변경하기만 하면 됨.
 
 * __전체코드__
-```python
-class Solution:
-    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-        queue = collections.deque([root])
-        sum_of_node = 0
+    ```python
+    class Solution:
+        def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+            queue = collections.deque([root])
+            sum_of_node = 0
 
-        while queue :
-            node = queue.popleft()
+            while queue :
+                node = queue.popleft()
 
-            if not node : continue
+                if not node : continue
 
-            if node.val < low : queue.append(node.right)
-            elif node.val > high : queue.append(node.left)
-            else : 
-                sum_of_node += node.val
-                queue.append(node.left)
-                queue.append(node.right)
-        return sum_of_node
-```
+                if node.val < low : queue.append(node.right)
+                elif node.val > high : queue.append(node.left)
+                else : 
+                    sum_of_node += node.val
+                    queue.append(node.left)
+                    queue.append(node.right)
+            return sum_of_node
+    ```
 
 ## 4. 비고
 * __함수를 작성할 때, 모든 리턴값의 자료형은 동일해야 함(재귀의 경우 더욱 더 주의)__
