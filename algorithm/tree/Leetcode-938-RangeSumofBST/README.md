@@ -147,10 +147,10 @@ class Solution:
 ## 4. 비고
 * __함수를 작성할 때, 모든 리턴값의 자료형은 동일해야 함(재귀의 경우 더욱 더 주의)__
 
-3-2 풀이에서 
-```python
-if not node : return
-...
-return node.val + dfs(node.right) + dfs(node.left)
-```
-이런 식으로 자료형이 다를 경우 NoneType과 int형의 + 연산을 지원하지 않기 때문에 에러 발생
+    3-2 풀이에서 
+    ```python
+    if not node : return
+    ...
+    return node.val + dfs(node.right) + dfs(node.left)
+    ```
+    이런 식으로 자료형이 다를 경우 NoneType과 int형의 + 연산을 지원하지 않기 때문에 에러 발생
