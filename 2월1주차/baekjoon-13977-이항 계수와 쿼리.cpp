@@ -32,7 +32,7 @@ int main() {
 	for (int i=2; i<4000001; i++) {
 		dptable[i] = static_cast<long long>(dptable[i-1]) * i % p;
 	}
-	dptable2[4000000] = pow(fac(4000000), p-2) % p; // 0!의 역원도 고려해줘야함 
+	dptable2[4000000] = pow(fac(4000000), p-2) % p;
 	for (int i=3999999; i>=0; i--) {
 		dptable2[i] = static_cast<long long>(dptable2[i+1]) * (i+1) %p;
 	}
