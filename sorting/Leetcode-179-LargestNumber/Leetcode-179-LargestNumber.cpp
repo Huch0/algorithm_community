@@ -31,5 +31,14 @@ public:
         return result;
     }
 };
-
 // wrong answer
+
+// sort(nums.begin(), nums.end(), [](int a, int b) {
+//     return to_string(a) + to_string(b) > to_string(b) + to_string(a);
+// });
+// correct lambda function
+
+// while (result.front() == '0' && result[1] == '0') {
+//     result.erase(0, 1);
+// }
+// exception case: [0, 0] -> "00" -> "0"
