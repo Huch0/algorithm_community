@@ -21,14 +21,14 @@ _start:
     ZERO_SWAP:
         lw      t3, 4(t1)       // t3 = *(cur + 1)
         addi    t1, t1, 4       // cur++
-        bgt     t4, t3, SWAP  // if arr_j > *(cur + 1) goto SWAP
+        blt     t4, t3, SWAP  // if arr_j < *(cur + 1) goto SWAP
         add     t4, x0, t3      // arr_j = *(cur + 1)
         blt     t1, t0, ZERO_SWAP  // if cur < last, goto ZERO_SWAP
         beq     x0, x0, EXIT_I  // if no swap occured in inner loop, sort done
     LOOP_J:
         lw      t3, 4(t1)       // t3 = *(cur + 1)
         addi    t1, t1, 4       // cur++
-        ble     t4, t3, NO_SWAP  // if arr_j <= *(cur + 1) goto NO_SWAP
+        bge     t4, t3, NO_SWAP  // if arr_j >= *(cur + 1) goto NO_SWAP
     SWAP:
         sw      t4, 0(t1)       //  *(cur + 1) = arr_j
         sw      t3, -4(t1)       //  *cur = *(cur + 1)
