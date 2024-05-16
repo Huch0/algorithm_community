@@ -5,8 +5,6 @@
 #         self.next = next
 class Solution:
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if not head : return head 
-
         List = []
         p = head
         while p :
