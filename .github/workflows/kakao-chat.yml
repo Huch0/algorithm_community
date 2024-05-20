@@ -3,6 +3,7 @@ name: Count Commits
 on:
   schedule:
     - cron: '0 20 * * 0'  # Runs every Sunday at 20:00
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   count-commits:
