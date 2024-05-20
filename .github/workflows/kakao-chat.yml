@@ -37,6 +37,8 @@ jobs:
           
           # Fetch all branches
           git fetch --all
+
+          git log --all --since="$last_sunday" --until="$current_date"
           
           # Count commits from last Sunday 20:00 to now
           contributors=$(git log --all --since="$last_sunday" --until="$current_date" --format='%an' | sort | uniq -c | sort -rn)
