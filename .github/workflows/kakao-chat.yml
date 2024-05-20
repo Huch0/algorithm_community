@@ -25,7 +25,7 @@ jobs:
           echo "Current Date: $current_date"
           
           # Calculate the last Sunday 20:00
-          last_sunday=$(date -u -v -Sun -v20H +"%Y-%m-%dT%H:%M:%SZ")
+          last_sunday=$(date -d "last Sunday 20:00" -u +"%Y-%m-%dT%H:%M:%SZ")
           echo "Last Sunday 20:00: $last_sunday"
           
           # Fetch all branches
