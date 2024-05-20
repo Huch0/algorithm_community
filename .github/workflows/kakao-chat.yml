@@ -1,0 +1,61 @@
+name: Count Commits
+
+on:
+  schedule:
+    - cron: '0 20 * * 0'  # Runs every Sunday at 20:00
+
+jobs:
+  count-commits:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Count commits
+        run: |
+          # Get the current date and time
+          current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "Current Date: $current_date"
+          
+          # Calculate the last Sunday 20:00
+          last_sunday=$(date -d "last Sunday 20:00" -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "Last Sunday 20:00: $last_sunday"
+          
+          # Fetch all branches
+          git fetch --all
+          
+          # Count commits from last Sunday 20:00 to now
+          contributors=$(git log --since="$last_sunday" --until="$current_date" --format='%an' | sort | uniq -c | sort -rn)
+          echo "$contributors"
+          echo "$contributors" > commit-count.txt
+
+      - name: Upload commit count as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: commit-count
+          path: commit-count.txt
+
+      - name: Send results to KakaoTalk
+        env:
+          KAKAO_ACCESS_TOKEN: ${{ secrets.KAKAO_ACCESS_TOKEN }}
+        run: |
+          commit_message=$(cat commit-count.txt)
+          json_payload=$(jq -n --arg text "$commit_message" '{
+            "object_type": "text",
+            "text": $text,
+            "link": {
+              "web_url": "https://github.com/Huch0/algorithm_community",
+              "mobile_web_url": "https://github.com/Huch0/algorithm_community"
+            },
+            "button_title": "View Commits"
+          }')
+          curl -v -X POST "https://kapi.kakao.com/v2/api/talk/memo/default/send" \
+               -H "Content-Type: application/x-www-form-urlencoded" \
+               -H "Authorization: Bearer $KAKAO_ACCESS_TOKEN" \
+               --data-urlencode "template_object=$json_payload"
