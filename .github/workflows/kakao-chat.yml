@@ -32,7 +32,7 @@ jobs:
           git fetch --all
           
           # Count commits from last Sunday 20:00 to now
-          contributors=$(git log --since="$last_sunday" --until="$current_date" --format='%an' | sort | uniq -c | sort -rn)
+          contributors=$(git log --all --since="$last_sunday" --until="$current_date" --format='%an' | sort | uniq -c | sort -rn)
           echo "$contributors"
           echo "$contributors" > commit-count.txt
 
