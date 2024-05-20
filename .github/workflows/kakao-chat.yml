@@ -17,6 +17,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+          
+      - name: Set timezone
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: "Asia/Seoul"
+          timezoneMacos: "Asia/Seoul"
+          timezoneWindows: "Korea Standard Time"
 
       - name: Count commits
         run: |
