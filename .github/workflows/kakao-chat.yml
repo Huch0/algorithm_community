@@ -2,7 +2,7 @@ name: Count Commits
 
 on:
   schedule:
-    - cron: '0 20 * * 0'  # Runs every Sunday at 20:00
+    - cron: '0 11 * * 0'  # Runs every Sunday at 20:00 Seoul time
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
