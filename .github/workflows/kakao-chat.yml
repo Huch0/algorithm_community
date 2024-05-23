@@ -1,71 +1,165 @@
 name: Count Commits
 
+
+
 on:
+
   schedule:
+
     - cron: '0 11 * * 0'  # Runs every Sunday at 20:00 Seoul time
+
   workflow_dispatch:  # Allows manual triggering
 
+
+
 jobs:
+
   count-commits:
+
     runs-on: ubuntu-latest
 
+
+
     steps:
+
       - name: Checkout repository
+
         uses: actions/checkout@v2
 
+
+
       - name: Set up Node.js
+
         uses: actions/setup-node@v2
+
         with:
+
           node-version: '14'
+
           
+
       - name: Set timezone
+
         uses: szenius/set-timezone@v2.0
+
         with:
+
           timezoneLinux: "Asia/Seoul"
+
           timezoneMacos: "Asia/Seoul"
+
           timezoneWindows: "Korea Standard Time"
 
+
+
       - name: Count commits
+
         run: |
+
           # Get the current date and time
+
           current_date=$(date +"%Y-%m-%dT%H:%M:%SZ")
+
           echo "Current Date: $current_date"
+
           
+
           # Calculate the last Sunday 20:00
+
           last_sunday=$(date -d "last Sunday 20:00" +"%Y-%m-%dT%H:%M:%SZ")
+
           echo "Last Sunday 20:00: $last_sunday"
+
           
+
           # Fetch all branches
+
           git fetch --all
 
+
+
           git log --all --since="$last_sunday" --until="$current_date"
+
           
+
           # Count commits from last Sunday 20:00 to now
+
           contributors=$(git log --all --since="$last_sunday" --until="$current_date" --format='%an' | sort | uniq -c | sort -rn)
+
           echo "$contributors"
+
           echo "$contributors" > commit-count.txt
 
+
+
       - name: Upload commit count as artifact
+
         uses: actions/upload-artifact@v2
+
         with:
+
           name: commit-count
+
           path: commit-count.txt
 
-      - name: Send results to KakaoTalk
-        env:
-          KAKAO_ACCESS_TOKEN: ${{ secrets.KAKAO_ACCESS_TOKEN }}
+
+
+      - name: Get new KakaoTalk access token
+
+        id: get_kakao_token
+
         run: |
+
+          response=$(curl -s -X POST "https://kauth.kakao.com/oauth/token" \
+
+            -H "Content-Type: application/x-www-form-urlencoded" \
+
+            -d "grant_type=refresh_token" \
+
+            -d "client_id=${{ secrets.KAKAO_CLIENT_ID }}" \
+
+            -d "client_secret=${{ secrets.KAKAO_CLIENT_SECRET }}" \
+
+            -d "refresh_token=${{ secrets.KAKAO_REFRESH_TOKEN }}")
+
+          KAKAO_ACCESS_TOKEN=$(echo "$response" | jq -r '.access_token')
+
+          echo "::set-output name=access_token::$KAKAO_ACCESS_TOKEN"
+
+
+
+      - name: Send results to KakaoTalk
+
+        env:
+
+          KAKAO_ACCESS_TOKEN: ${{ steps.get_kakao_token.outputs.access_token }}
+
+        run: |
+
           commit_message=$(cat commit-count.txt)
+
           json_payload=$(jq -n --arg text "$commit_message" '{
+
             "object_type": "text",
+
             "text": $text,
+
             "link": {
+
               "web_url": "https://github.com/Huch0/algorithm_community",
+
               "mobile_web_url": "https://github.com/Huch0/algorithm_community"
+
             },
+
             "button_title": "View Commits"
+
           }')
+
           curl -v -X POST "https://kapi.kakao.com/v2/api/talk/memo/default/send" \
+
                -H "Content-Type: application/x-www-form-urlencoded" \
+
                -H "Authorization: Bearer $KAKAO_ACCESS_TOKEN" \
+
                --data-urlencode "template_object=$json_payload"
