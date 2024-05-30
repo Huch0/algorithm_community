@@ -63,7 +63,7 @@
     if head and cur_node.val > head.val :
         cur_node = cur
     ```
-* __위의 조건문으로 반복이 필요한 경우만 while문을 loop하도록 하여, cur을 순회할 필요 없는 경우에도 처음부터 다시 순회하는 불상사를 제거한다__
+* __위의 조건문으로 반복이 필요한 경우만 while문을 loop하도록 하여, cur을 순회할 필요 없는 경우에도 처음부터 다시 순회하는 불상사를 막는다__
 
 * 전체코드 
     ```python
