@@ -16,8 +16,7 @@ def sequence_alignment(x: list, y: list, m: int = 5, s: int = -3, d: int = -4):
     for i in range(1, m + 1):
         for j in range(1, n + 1):
             F[i][j] = max(
-                F[i - 1][j - 1] + (m if x[i - 1] == y[j - 1]
-                                   else s),  # case1 match/mismatch
+                F[i - 1][j - 1] + (m if x[i - 1] == y[j - 1] else s),  # case1 match/mismatch
                 F[i - 1][j] + d,  # case2
                 F[i][j - 1] + d,  # case3
             )
@@ -32,7 +31,7 @@ def sequence_alignment(x: list, y: list, m: int = 5, s: int = -3, d: int = -4):
                 Ptr[i][j] = '←'
 
     # score(m, n)
-    print_F(F)
+    print_F(F, x, y)
     print_Ptr(Ptr)
 
     # Traceback
@@ -60,8 +59,17 @@ def sequence_alignment(x: list, y: list, m: int = 5, s: int = -3, d: int = -4):
     print("".join(y_align))
 
 
-def print_F(F):
-    for row in F:
+def print_F(F, x, y):
+    print("-  - ", end=" ")
+    for elem in y:
+        print("%3s" % elem, end=" ")
+    print()
+    for i, row in enumerate(F):
+        if i == 0:
+            print("-", end=" ")
+        else:
+            print("%s" % x[i - 1], end=" ")
+
         for elem in row:
             print("%3d" % elem, end=" ")
         print()
