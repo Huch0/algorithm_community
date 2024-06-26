@@ -60,6 +60,58 @@ public:
     }
 };
 
+// stl map 연습 한번 해봄
+class Trie {
+public:
+    typedef struct TreeNode {
+        char c;
+        bool dest;
+        map<char, TreeNode*> child;
+    } TreeNode;
+
+    TreeNode *root;
+
+    Trie() {
+        root = new TreeNode();
+    }
+
+    void insert(string word) {
+        int i = 0;
+        TreeNode *node = root;
+        while(true) {
+            if (node->child.find(word[i]) == node->child.end()) break;
+            node = node->child[word[i]];
+            i++;
+        }
+        for (; i<word.size(); i++) {
+            TreeNode *nptr = new TreeNode();
+            nptr->c = word[i];
+            node->child[word[i]] = nptr;
+            node = nptr;
+        }
+        node->dest = true;
+    }
+
+    bool search(string word) {
+        TreeNode *node = root;
+        for (int i=0; i<word.size(); i++) {
+            if (node->child.find(word[i]) == node->child.end()) return false;
+            node = node->child[word[i]];
+        }
+        if (node->dest) return true;
+        else return false;
+    }
+    
+    bool startsWith(string prefix) {
+        TreeNode *node = root;
+        for (int i=0; i<prefix.size(); i++) {
+            if (node->child.find(prefix[i]) == node->child.end()) return false;
+            node = node->child[prefix[i]];
+        }
+        return true;
+    }
+};
+
 /**
  * Your Trie object will be instantiated and called as such:
  * Trie* obj = new Trie();
