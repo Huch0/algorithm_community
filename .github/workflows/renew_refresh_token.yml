@@ -1,0 +1,45 @@
+name: Renew Kakao Refresh Token
+
+on:
+  schedule:
+    - cron: '0 0 1 */1 *'  # Run at 00:00 on the 1st of every other month
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  renew-refresh-token:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Renew Kakao Refresh Token
+        id: renew_token
+        run: |
+          response=$(curl -v -X POST "https://kauth.kakao.com/oauth/token" \
+             -H "Content-Type: application/x-www-form-urlencoded" \
+             -d "grant_type=refresh_token" \
+             -d "client_id=${{ secrets.KAKAO_CLIENT_ID }}" \
+             -d "client_secret=${{ secrets.KAKAO_CLIENT_SECRET }}" \
+             -d "refresh_token=${{ secrets.KAKAO_REFRESH_TOKEN }}")
+
+          echo "Response: $response"
+
+          new_refresh_token=$(echo "$response" | jq -r '.refresh_token')
+          
+          if [ "$new_refresh_token" != "null" ] && [ -n "$new_refresh_token" ]; then
+            echo "new_refresh_token=$new_refresh_token" >> $GITHUB_OUTPUT
+            echo "Refresh token successfully renewed"
+          else
+            echo "No new refresh token received. Using the existing one."
+            echo "new_refresh_token=${{ secrets.KAKAO_REFRESH_TOKEN }}" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "new_access_token=$new_access_token" >> $GITHUB_OUTPUT
+
+      - name: Update GitHub Secrets
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          # Update KAKAO_REFRESH_TOKEN
+          gh secret set KAKAO_REFRESH_TOKEN -b"${{ steps.renew_token.outputs.new_refresh_token }}" \
+            -R "$REPO_OWNER/$REPO_NAME"
