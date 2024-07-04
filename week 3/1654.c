@@ -14,7 +14,7 @@ int main()
 	for (i = 0; i < K; i++)
 	{
 		scanf(" %lld", &list[i]);
-		if (list[i] > k_max) /*K°³ÀÇ ·£¼± Áß Á¦ÀÏ Å«¾Ö Ã£±â*/
+		if (list[i] > k_max) /*Kê°œì˜ ëœì„  ì¤‘ ì œì¼ í°ì•  ì°¾ê¸°*/
 			k_max = list[i];
 	}
 
@@ -27,7 +27,7 @@ int main()
 
 		for (j = 0, cnt = 0; j < K; j++)
 		{
-			cnt += list[j] / mid; /* °¢ ·£¼±¸¶´Ù ¸îÄ­¾¿ ³ª¿À´ÂÁö Ã¼Å©*/
+			cnt += list[j] / mid; /* ê° ëœì„ ë§ˆë‹¤ ëª‡ì¹¸ì”© ë‚˜ì˜¤ëŠ”ì§€ ì²´í¬*/
 		}
 
 		if (N <= cnt && max_len < mid)
