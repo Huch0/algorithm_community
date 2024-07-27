@@ -1,56 +1,56 @@
-#¹éÁØ 14500
-#Å×Æ®·Î¹Ì³ë
+#ë°±ì¤€ 14500
+#í…ŒíŠ¸ë¡œë¯¸ë…¸
 
 n, m = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(n)] # ÀÔ·Â°ª ÀúÀå
-visited = [[False] * m for _ in range(n)] # ¹æ¹®È®ÀÎ
+graph = [list(map(int, input().split())) for _ in range(n)] # ì…ë ¥ê°’ ì €ì¥
+visited = [[False] * m for _ in range(n)] # ë°©ë¬¸í™•ì¸
 
-# ¹æÇâ¼³Á¤
+# ë°©í–¥ì„¤ì •
 dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
 
-maximum = 0 # ÃÖ´ñ°ª ÀúÀå º¯¼ö
+maximum = 0 # ìµœëŒ“ê°’ ì €ì¥ ë³€ìˆ˜
 
-# ¤Ç ¸ğ¾çÀ» Á¦¿ÜÇÑ ³ª¸ÓÁö ¸ğ¾ç Å½»ö
+# ã…— ëª¨ì–‘ì„ ì œì™¸í•œ ë‚˜ë¨¸ì§€ ëª¨ì–‘ íƒìƒ‰
 def dfs(x, y, tmp, cnt):
     global maximum
-    if cnt == 4: # Å½»ö¿Ï·á ÈÄ ÃÖ´ñ°ª ºñ±³
+    if cnt == 4: # íƒìƒ‰ì™„ë£Œ í›„ ìµœëŒ“ê°’ ë¹„êµ
         maximum = max(maximum, tmp)
         return
-    for i in range(4): # ¹æÇâ Å½»ö
+    for i in range(4): # ë°©í–¥ íƒìƒ‰
         nx = x + dx[i]
         ny = y + dy[i]
         if nx<0 or nx>=m or ny<0 or ny>=n or visited[ny][nx]:
             continue
-        visited[ny][nx] = True # ¹æ¹®Ã³¸®
+        visited[ny][nx] = True # ë°©ë¬¸ì²˜ë¦¬
         dfs(nx, ny, tmp+graph[ny][nx], cnt+1)
-        visited[ny][nx] = False # ¹æ¹®Ã³¸® Á¦°Å
+        visited[ny][nx] = False # ë°©ë¬¸ì²˜ë¦¬ ì œê±°
 
-# ¤Ç ¸ğ¾ç Å½»ö
+# ã…— ëª¨ì–‘ íƒìƒ‰
 def fy(x, y):
     global maximum
     tmp = graph[y][x]
     arr = []
-    for i in range(4): # ¸ğµç ¹æÇâ Å½»ö
+    for i in range(4): # ëª¨ë“  ë°©í–¥ íƒìƒ‰
         nx = x + dx[i]
         ny = y + dy[i]
         if nx<0 or nx>=m or ny<0 or ny>=n:
             continue
         arr.append(graph[ny][nx])
     length = len(arr)
-    if length == 4 : # ¸¸¾à 4¹æÇâ ¸ğµÎ nxm¿¡ µé¾î°£´Ù¸é ±×Áß °¡Àå ÀÛÀº °ª Á¦°Å ÈÄ sum
+    if length == 4 : # ë§Œì•½ 4ë°©í–¥ ëª¨ë‘ nxmì— ë“¤ì–´ê°„ë‹¤ë©´ ê·¸ì¤‘ ê°€ì¥ ì‘ì€ ê°’ ì œê±° í›„ sum
         arr.sort(reverse=True)
         arr.pop()
         maximum = max(maximum, sum(arr) + graph[y][x])
-    elif length == 3: # 3¹æÇâ¸¸ nxm¿¡ µé¾î°¡±â ¶§¹®¿¡ ¹Ù·Î sum
+    elif length == 3: # 3ë°©í–¥ë§Œ nxmì— ë“¤ì–´ê°€ê¸° ë•Œë¬¸ì— ë°”ë¡œ sum
         maximum = max(maximum, sum(arr) + graph[y][x])
-    return # length°¡ 2 ÀÌÇÏ¶ó¸é ¤Ç ¸ğ¾çÀÌ ¾Æ´Ï¹Ç·Î ¹Ù·Î return
+    return # lengthê°€ 2 ì´í•˜ë¼ë©´ ã…— ëª¨ì–‘ì´ ì•„ë‹ˆë¯€ë¡œ ë°”ë¡œ return
 
 for i in range(n):
     for j in range(m):
-        visited[i][j] = True # ÇöÀç ÁöÁ¡ ¹æ¹®Ã³¸®
+        visited[i][j] = True # í˜„ì¬ ì§€ì  ë°©ë¬¸ì²˜ë¦¬
         dfs(j, i, graph[i][j], 1)
         fy(j, i)
         visited[i][j] = False
 
-print(maximum) # Á¤´ä Ãâ·Â
+print(maximum) # ì •ë‹µ ì¶œë ¥
