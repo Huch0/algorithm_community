@@ -2,7 +2,7 @@ from collections import deque
 import sys
 input = sys.stdin.readline
  
-n, m = map(int, input().split()) # »ç´Ù¸® ¼ö, ¹ì ¼ö
+n, m = map(int, input().split()) # ì‚¬ë‹¤ë¦¬ ìˆ˜, ë±€ ìˆ˜
  
 board = [0] * 101
 visited = [False] * 101
@@ -26,7 +26,7 @@ def bfs(start):
     while q:
         cur = q.popleft()
  
-        for i in range(1, 7): # ÁÖ»çÀ§ 1 ~ 6
+        for i in range(1, 7): # ì£¼ì‚¬ìœ„ 1 ~ 6
             next = cur + i
  
             if 0 < next <= 100 and not visited[next]:
@@ -41,5 +41,5 @@ def bfs(start):
                     visited[next] = True
                     board[next] = board[cur] + 1
  
-bfs(1) # 1ºÎÅÍ ½ÃÀÛ
+bfs(1) # 1ë¶€í„° ì‹œìž‘
 print(board[100])
