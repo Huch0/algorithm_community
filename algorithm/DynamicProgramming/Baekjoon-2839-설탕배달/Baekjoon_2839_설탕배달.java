@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Baekjoon_2839 {
+public class Baekjoon_2839_설탕배달 {
 	public static int dynamic(int n,int count) {
 		if(n==1 || n==2) {return -1;}
 		
