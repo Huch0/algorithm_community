@@ -1,0 +1,5 @@
+iter max_element(iter1, iter2, //comparator);
+int distance(iter1, iter2); //두 반복자 사이의 거리 반환
+iter next(iter, dist); //dist만큼 다음의 반복자 반환
+iter lower_bound(iter1, iter2, target) //같거나 큰 반복자 반환 (vector.begin()로 사용가능)
+iter upper_bound(iter1, iter2, target) //큰 반복자 반환 (vector.end()로 사용가능)

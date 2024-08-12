@@ -63,6 +63,6 @@ int solution(string name) {
     for (int i=0; i<len; i++) {
         answer += min(name[i] - 'A', 'Z'+1 - name[i]);
     }
-
+    
     return answer;
 }

@@ -13,7 +13,7 @@ int solution(int n, vector<vector<int>> wires) {
         connection[wires[i][0]].insert(wires[i][1]);
         connection[wires[i][1]].insert(wires[i][0]);
     }
-    
+
     for (int i=0; i<wires.size(); i++) {
         //set에서 요소삭제
         connection[wires[i][0]].erase(wires[i][1]);

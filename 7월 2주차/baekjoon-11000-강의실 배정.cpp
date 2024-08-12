@@ -26,7 +26,7 @@ int main() {
 		if (it == s.rend()) s.insert(a[i].second);
 		else {
 			s.erase(--it.base());
-			s.insert(a[0].second);
+			s.insert(a[i].second);
 		}
 	}
 	cout << s.size();

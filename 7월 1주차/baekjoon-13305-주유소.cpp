@@ -10,11 +10,11 @@ int main() {
 	for (int i=0; i<n-1; i++) cin >> d[i];
 	for (int i=0; i<n; i++) cin >> price[i];
 	
-	int answer = 0;
+	long long answer = 0;
 	while(!d.empty()) {
 		auto iter = min_element(price.begin(), price.end()-1);
 		int curindex = distance(price.begin(), iter);
-		int curleftdistance = 0;
+		long long curleftdistance = 0;
 		for (int i=curindex; i<d.size(); i++) {
 			curleftdistance += d[i];
 		}
