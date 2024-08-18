@@ -1,4 +1,4 @@
-package algorithm.sort;
+package algorithm.sort.Baekjoon_2108_통계학;
 
 import java.util.*;
 
