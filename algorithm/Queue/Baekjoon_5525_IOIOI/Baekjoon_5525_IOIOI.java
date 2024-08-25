@@ -38,5 +38,7 @@ public class Baekjoon_5525_IOIOI {
         }
 
         System.out.println(count);
+
+        sc.close();
     }
 }
