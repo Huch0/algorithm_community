@@ -34,7 +34,6 @@ public class Baekjoon_4949_균형잡힌세상 {
 			else {result.add("no");}
 			
 			stack1.clear();
-			
 		}
 		
 		for(int i = 0; i < result.size(); i++) {
