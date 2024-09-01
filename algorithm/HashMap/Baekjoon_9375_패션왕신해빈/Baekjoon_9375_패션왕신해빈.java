@@ -1,11 +1,7 @@
 package algorithm.HashMap.Baekjoon_9375_패션왕신해빈;
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Iterator;
+import java.util.*;
+import java.io.*;
 
 public class Baekjoon_9375_패션왕신해빈 {
     public static void main(String[] args) throws IOException{
@@ -17,6 +13,7 @@ public class Baekjoon_9375_패션왕신해빈 {
         String[] line;
         String key, value;
         int result = 1;
+
         for(int i = 0; i < testCase; i++){
             n = Integer.parseInt(br.readLine());
             for(int j = 0; j < n; j++){
@@ -40,7 +37,6 @@ public class Baekjoon_9375_패션왕신해빈 {
             map.clear();
             result = 1;
         }
-        
         
     }
 
