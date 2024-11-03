@@ -23,11 +23,8 @@ class Solution(object):
         results = []
         for idx, value in enumerate(expression):
             if value in "-+*":
-                # Split expression into left and right parts
                 left = self.diffWaysToCompute(expression[:idx])
                 right = self.diffWaysToCompute(expression[idx+1:])
-                
-                # Compute combinations and extend results
                 results.extend(compute(left, right, value))
                 
         return results
